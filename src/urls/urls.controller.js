@@ -31,9 +31,9 @@ function update(req, res, next){
 }
 
 function hasHref(req, res, next) {
-    const {data : { href = null }} = req.body;
+    const {data : { href }} = req.body;
     if(!href){
-        next({
+        return next({
             status: 400,
             message: "Input data must contain href key."
         })
@@ -43,7 +43,7 @@ function hasHref(req, res, next) {
 }
 
 function urlExists (req, res, next){
-    const { urlId = null} = req.params
+    const { urlId } = req.params
     const foundUrl = urls.find((url)=> url.id === Number(urlId))
 
     if(foundUrl){
@@ -52,7 +52,7 @@ function urlExists (req, res, next){
     }
     next({
         status: 404,
-        message: `The id ${urlId} does not exist`
+        message: `Url ID not found: ${urlId}`
     })
 }
 
